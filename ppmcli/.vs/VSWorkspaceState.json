@@ -1,0 +1,13 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\actions",
+    "\\src\\component",
+    "\\src\\component\\Layout",
+    "\\src\\component\\project",
+    "\\src\\reducers"
+  ],
+  "SelectedNode": "\\src\\component\\project\\AddProject.js",
+  "PreviewInSolutionExplorer": false
+}
