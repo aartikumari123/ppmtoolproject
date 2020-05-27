@@ -4,8 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.yash.ppmtoolapi1.domain.Backlog;
+import com.yash.ppmtoolapi1.domain.Project;
 import com.yash.ppmtoolapi1.domain.ProjectTask;
+import com.yash.ppmtoolapi1.exception.ProjectNotFoundException;
 import com.yash.ppmtoolapi1.repository.BacklogRepository;
+import com.yash.ppmtoolapi1.repository.ProjectRepository;
 import com.yash.ppmtoolapi1.repository.ProjectTaskRepository;
 
 @Service
@@ -16,6 +19,9 @@ private BacklogRepository backlogRepository;
 
 @Autowired 
 private ProjectTaskRepository projectTaskRepository;
+
+@Autowired
+private ProjectRepository projectRepository;
 
 
 public ProjectTask addProjectTask(String projectIdentifier, ProjectTask projectTask) {
@@ -40,6 +46,21 @@ public ProjectTask addProjectTask(String projectIdentifier, ProjectTask projectT
 	}
 	return projectTaskRepository.save(projectTask);
 	
+}
+
+
+public Iterable<ProjectTask> findProjectById(String id) {
+	Project project=projectRepository.findByProjectIdentifier(id);
+	if(project==null)
+	{
+		throw new  ProjectNotFoundException("project not exist");
+	}
+	return projectTaskRepository.findByProjectIdentifierOrderByPriority(id);
+}
+
+
+public ProjectTask findByProjectSequence(String pt_id) {
+	return projectTaskRepository.findByProjectSequence(pt_id);
 }
 
 
